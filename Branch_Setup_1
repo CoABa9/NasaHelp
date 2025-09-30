@@ -2,3 +2,80 @@ Title: Add basic Java app
 Description: This PR introduces the initial version of NASA Info Hub with a menu and simple database.
 Merge into main branch.
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * NASA InfoHub
+ * A simple console-based application to help NASA staff
+ * access important information quickly and efficiently.
+ */
+public class NasaInfoHub {
+
+    // Database of topics and their descriptions
+    private static final Map<String, String> infoDatabase = new LinkedHashMap<>();
+
+    // Initialize the database with sample data
+    static {
+        infoDatabase.put("Apollo 11", "First successful Moon landing mission (1969).");
+        infoDatabase.put("James Webb Telescope", "NASA's most advanced space telescope, launched in 2021.");
+        infoDatabase.put("ISS", "International Space Station, a collaborative orbital research facility.");
+        infoDatabase.put("Mars Rover Perseverance", "Exploring Mars since 2021, searching for signs of ancient life.");
+        infoDatabase.put("Artemis Program", "NASA program to return humans to the Moon by mid-2020s.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=================================");
+        System.out.println("     🚀 Welcome to NASA InfoHub 🚀");
+        System.out.println("=================================\n");
+        System.out.println("Your gateway to quick and reliable NASA information.\n");
+
+        boolean running = true;
+        while (running) {
+            printMenu();
+            System.out.print("Enter your choice: ");
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1" -> viewAllInformation();
+                case "2" -> searchInformation(scanner);
+                case "3" -> {
+                    System.out.println("\nExiting NASA InfoHub. Stay curious! 🌌");
+                    running = false;
+                }
+                default -> System.out.println("⚠️ Invalid choice. Please try again.\n");
+            }
+        }
+        scanner.close();
+    }
+
+    // Display the menu
+    private static void printMenu() {
+        System.out.println("------- Main Menu -------");
+        System.out.println("1. View all information");
+        System.out.println("2. Search for information");
+        System.out.println("3. Exit");
+    }
+
+    // Show all information in the database
+    private static void viewAllInformation() {
+        System.out.println("\n--- NASA Knowledge Base ---");
+        infoDatabase.forEach((topic, description) ->
+                System.out.println("🔹 " + topic + ": " + description));
+        System.out.println();
+    }
+
+    // Search for a specific topic
+    private static void searchInformation(Scanner scanner) {
+        System.out.print("\nEnter topic name to search: ");
+        String topic = scanner.nextLine().trim();
+
+        if (infoDatabase.containsKey(topic)) {
+            System.out.println("✅ " + topic + ": " + infoDatabase.get(topic) + "\n");
+        } else {
+            System.out.println("❌ Sorry, no information found for: " + topic + "\n");
+        }
+    }
+}
