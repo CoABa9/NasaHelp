@@ -1,0 +1,7 @@
+Add search option to menu
+Implement search function with topic lookup
+Handle case where topic not found
+
+Add search functionality
+Description: This PR improves NASA InfoHub by letting users search for specific information topics (e.g., Apollo 11).
+Merge into main.
